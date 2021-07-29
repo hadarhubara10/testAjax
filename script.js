@@ -13,7 +13,7 @@ getAPI();
 
 function createGui(json) {
   display.innerHTML = '';
-  console.log(json.length) //havi check
+  console.log(json.length); //havi check
   json.forEach((element) => {
     display.innerHTML += `<div class="col">
       <div class="card">
@@ -66,17 +66,25 @@ function getBorder(array) {
   }
 }
 
-function searchResult(array) {
-  let arrayResult = array;
-  let searchArr = [];
-  let nameSearch = idSearch.value.toLowerCase();
-  arrayResult.forEach((element) => {
-    let checkName = element.name.toLowerCase();
-    if (checkName.includes(nameSearch)) searchArr.push(element);
-  });
-  createGui(searchArr);
-}
+// function searchResult(array) {
+//   let arrayResult = array;
+//   let searchArr = [];
+//   let nameSearch = idSearch.value.toLowerCase();
+//   arrayResult.forEach((element) => {
+//     let checkName = element.name.toLowerCase();
+//     if (checkName.includes(nameSearch)) searchArr.push(element);
+//   });
+//   createGui(searchArr);
+// }
 
-idBtn.onclick = () => {
-  searchResult(fetchResult);
+idSearch.onkeydown = () => {
+  // searchResult(fetchResult);
+  filterAjax();
 };
+
+function filterAjax() {
+  let resultTest = fetchResult.filter((city) =>
+    city.name.toLowerCase().includes(idSearch.value.toLowerCase())
+  );
+  createGui(resultTest);
+}
