@@ -1,5 +1,4 @@
 let fetchResult;
-let arrayTest = [];
 function getAPI() {
   fetch('https://restcountries.eu/rest/v2/all')
     .then((result) => result.json())
@@ -7,13 +6,14 @@ function getAPI() {
       console.log(json);
       createHeader(json);
       createGui(json);
+      fetchResult = json;
     });
 }
 getAPI();
 
 function createGui(json) {
-  // fetchResult = json;
   display.innerHTML = '';
+  console.log(json.length) //havi check
   json.forEach((element) => {
     display.innerHTML += `<div class="col">
       <div class="card">
@@ -80,23 +80,3 @@ function searchResult(array) {
 idBtn.onclick = () => {
   searchResult(fetchResult);
 };
-
-function searchResult1(array) {
-  let arrayResult = array;
-  let searchArr = [];
-  let nameSearch = idSearch.value.toLowerCase();
-  arrayResult.filter((element) => {
-    let checkName = element.name.toLowerCase();
-    if (checkName.includes(nameSearch)) searchArr.push(element);
-  });
-  createGui(searchArr);
-}
-
-function search1(val) {
-  // console.log(val);
-  let result = fetchResult.filter((c) =>
-    c.name.toLowerCase().includes(val.toLowerCase())
-  );
-  console.log(result);
-  createGui(result);
-}
